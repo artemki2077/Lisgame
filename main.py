@@ -2,7 +2,7 @@ import discord
 from PIL import Image, ImageDraw 
 from discord.ext import commands
 from replit import db
-from config import time, time_war
+from config import time, time_war, colors
 import config
 import keep_alive
 import random 
@@ -20,11 +20,7 @@ game = {
     "б" : "к"
 }
 
-colors = {
-    "1" : "red",
-    "2" : "green",
-	"3" : "blue"
-}
+
 con = 23.5
 roles = {
     "855561052549021696": "1",
@@ -68,8 +64,8 @@ def war(x, y, uf, ut, s):
 
 @client.command(pass_context=True)
 async def help(ctx: commands.Context):
-    await ctx.send(
-        "да пошло оно в пизду, мне лень писать помошь, там же блять всё пянятно, а если ты не понял то ты блять реально обезьяна ")
+    await ctx.send(" \
+	в этой игре для того, чтобы")
 
 
 def update():
@@ -119,14 +115,20 @@ async def step(ctx=commands.Context, *args):
         ctx.send(embed=discord.Embed(description=f".step <x> <y>",
                                      color=0xff4542).set_author(name="Ошибка"))
     else:
+        # print(ctx.author.name)
         update()
         role = [i for i in ctx.author.roles if str(i.id) in roles.keys()]
         x = int(args[0])
         y = int(args[1])
         rol = roles[str(role[0].id)]
+
         if kkk(x, y) == rol:
             await ctx.send(embed=discord.Embed(description=f"поле уже занято",
                                      color=0xff4542).set_author(name="Ошибка"))
+        elif not (0 < x <= 25) or not (0 < y <= 25):
+            await ctx.send(embed=discord.Embed(description=f"так нельзя",
+                                     color=0xff4542).set_author(name="Ошибка"))                              
+       
         elif not role:
             await ctx.send(embed=discord.Embed(description=f"у тебя нет роли",
                                      color=0xff4542).set_author(name="Ошибка"))
@@ -139,27 +141,32 @@ async def step(ctx=commands.Context, *args):
                                      color=0xff4542).set_author(name="Ошибка"))
             else:
                 if game[args[2]] == kkk(x, y)[3] or args[2] == kkk(x, y)[3]:
+                    db["stat"].append(["answ", rol, kkk(x, y)[0], args[2], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
+					# db["stat"].append([1, rol, ])
                     await ctx.send(embed=discord.Embed(description=f"succes",
                                                 color=0x49ff42).set_author(name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                     jjj(x, y, rol)
                 else:
+                    db["stat"].append(["answ", rol, kkk(x, y)[0], args[2], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                     await ctx.send(embed=discord.Embed(description=f"ты проиграл",
                                      color=0xff4542).set_author(name="Ошибка"))
                     jjj(x, y, kkk(x, y)[0])
         elif kkk(x, y) != "*" and kkk(x, y) != rol and type(kkk(x, y)) == str:
             if len(args) != 3:
-                await ctx.send(embed=discord.Embed(description=f"быберите 'к', 'н' или 'б'",
+                await ctx.send(embed=discord.Embed(description=f"выберите 'к', 'н' или 'б'",
+                                     color=0xff4542).set_author(name="Ошибка"))
+            elif args[2] != "к" and args[2] != "н" and args[2] != "б":
+                await ctx.send(embed=discord.Embed(description=f"неправильный набран знак войны",
                                      color=0xff4542).set_author(name="Ошибка"))
             elif r.randint(0, 10) > 7:
                 await ctx.send(embed=discord.Embed(description=f"не повизло",
                                      color=0xff4542).set_author(name="Ошибка"))
+                db["stat"].append(["war", rol, kkk(x, y), args[2], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                 db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            elif args[2] != "к" and args[2] != "н" and args[2] != "б":
-                await ctx.send(embed=discord.Embed(description=f"неправильный набран знак войны",
-                                     color=0xff4542).set_author(name="Ошибка"))
             else:
                 if (kkk(x, y - 1 if y - 1 > 0 else y) == rol or kkk(x + 1 if x + 1 < 24 else x, y) == rol or kkk(x, y + 1 if y + 1 < 24 else y) == rol or kkk(x - 1 if x - 1 > 0 else x, y) == rol):
                     if str(ctx.author.id) not in db:
+                        db["stat"].append(["war", rol, kkk(x, y), args[2], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                         await ctx.send(embed=discord.Embed(description=f"succes",
                                                 color=0x49ff42).set_author(name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                         war(x, y, rol, kkk(x, y), args[2])
@@ -171,6 +178,7 @@ async def step(ctx=commands.Context, *args):
                                                 color=0x49ff42).set_author(name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                             war(x, y, rol, kkk(x, y), args[2])
                             db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                            db["stat"].append(["war", rol, kkk(x, y), args[2], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                         else:
                             tt = time - delta
                             hour, remainder = divmod(tt.seconds, 3600)
@@ -184,12 +192,14 @@ async def step(ctx=commands.Context, *args):
         elif r.randint(0, 10) > 8:
             await ctx.send(embed=discord.Embed(description=f"не повизло",
                                      color=0xff4542).set_author(name="Ошибка"))
+            db["stat"].append(["step", rol, [x, y], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
             db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        elif (kkk(x, y - 1 if y - 1 > 0 else y) == rol or kkk(x + 1 if x + 1 < 24 else x, y) == rol or kkk(x, y + 1 if y + 1 < 24 else y) == rol or kkk(x - 1 if x - 1 > 0 else x, y) == rol):
+        elif (kkk(x, y - 1 if y - 1 > 0 else y) == rol or kkk(x + 1 if x + 1 <= 25 else x, y) == rol or kkk(x, y + 1 if y + 1 <= 25 else y) == rol or kkk(x - 1 if x - 1 > 0 else x, y) == rol):
             if str(ctx.author.id) not in db:
                 await ctx.send(embed=discord.Embed(description=f"succes",
                                         color=0x49ff42).set_author(name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                 jjj(x, y, rol)
+                db["stat"].append(["step", rol, [x, y], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                 db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             else:
                 delta = dt.datetime.now() - dt.datetime.strptime(db[str(ctx.author.id)] , "%d/%m/%Y %H:%M:%S")
@@ -197,6 +207,7 @@ async def step(ctx=commands.Context, *args):
                     await ctx.send(embed=discord.Embed(description="succes",
                                         color=0x49ff42).set_author(name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                     jjj(x, y, rol)
+                    db["stat"].append(["step", rol, [x, y], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
                     db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                 else:
                     tt = time - delta
@@ -211,6 +222,7 @@ async def step(ctx=commands.Context, *args):
         else:
             await ctx.send(embed=discord.Embed(description=f"error",
                                      color=0xff4542).set_author(name="Ошибка"))
+            db["stat"].append(["step", rol, [x, y], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y], ctx.author.name])
 
 keep_alive.keep_alive()
 client.run(config.TOKEN)
