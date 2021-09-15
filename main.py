@@ -5,7 +5,7 @@ from replit import db
 from config import time, time_war, colors
 import config
 import keep_alive
-import random 
+import random
 import datetime as dt
 
 r = random.Random()
@@ -23,9 +23,9 @@ game = {
 
 con = 23.5
 roles = {
-    "855561052549021696": "1",
-    "855561104985030717": "2",
-    "855561141634990101": "3"
+    "884781544969994270": "Львы",
+    "884780652753461349": "Волки",
+    "884781232238514197": "Вороны"
 }
 
 # db["map"] = [["*"] * 25] * 25

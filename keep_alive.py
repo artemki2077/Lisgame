@@ -82,7 +82,7 @@ def main():
     su = sorted(use, key=lambda x: use[x], reverse=True)
     return render_template('index.html',
                            bt=bestt,
-						   st=st,
+                           st=st,
                            use=use,
                            map=db["map"],
                            enumerate=enumerate,
