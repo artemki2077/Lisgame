@@ -11,7 +11,10 @@
 # db["map"][13][13] = [1, 2, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")]
 # print(*db["map"].value)
 # def jjj(x, y, z):
-# 	db["map"][25 - y][x - 1] = z	
+# 	return db["map"][25 - y][x - 1]
+# db["map"] = [["*" for j in range(25)] for i in range(25)]
+# db["stat"] = []
+# print(db)
 # db["stat"] = [[type, who, step, success or not, time, [x, y], user]]
 # db["stat"] = [[type, who, for who,symbol, success or not, time, [x, y], user]]
 # for x in range(1, 26):
@@ -24,6 +27,21 @@
 # print(os.getenv("REPLIT_DB_URL")
 # my_secret = os.environ['REPLIT_DB_URL']
 # "))
-# jjj(x, y, "Вороны")
+# def jjj(x, y, z):
+#     db["map"][25 - y][x - 1] = z
+# colors = {
+#     "Волки" : "#30324b",
+#     "Львы" : "orange",
+# 	"Вороны" : "purple",
+# 	"Артём" : "green"
+# }
+# for i in [[7, 6], [6, 6], [6, 7], [6, 8], [7, 8], [8, 8], [9, 8]]:
+# 	jjj(i[0], i[1], "Львы")
+# for i in [[15, 15], [14, 15], [13, 15], [13, 16], [13, 17], [13, 18], [13, 19]]:
+# 	jjj(i[0], i[1], "Волки")
+# for i in [[10, 20], [10, 21], [10, 22], [10, 23], [11, 21], [11, 22], [12, 21], [13, 21], [13, 22], [14, 21], [15, 21]]:
+# 	jjj(i[0], i[1], "Вороны")
+
+
 # db["stat"] = []
 # db["map"][0][24] = "*"
