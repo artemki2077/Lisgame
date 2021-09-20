@@ -119,11 +119,11 @@ async def map(ctx: commands.Context):
 @client.command()
 async def step(ctx=commands.Context, *args):
     if len(args) >= 4 or len(args) == 1:
-        ctx.send(embed=discord.Embed(description=f".step <x> <y>",
-                                     color=0xff4542).set_author(name="Ошибка"))
+        ctx.send(embed=discord.Embed(description=f".step <x> <y>",color=0xff4542).set_author(name="Ошибка"))
     else:
+        print(f"{ctx.author.name} : {' '.join(args)}")
         # print(ctx.author.name)
-        update()
+        # update()
         role = [i for i in ctx.author.roles if str(i.id) in roles.keys()]
         x = int(args[0])
         y = int(args[1])
@@ -178,23 +178,23 @@ async def step(ctx=commands.Context, *args):
                                    ctx.author.name])
                 db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             else:
-                if kkk(x, y - 1 if y - 1 > 0 else y) == rol or kkk(x + 1 if x + 1 < 24 else x,y) == rol or kkk(x,y + 1 if y + 1 < 24 else y) == rol or kkk(x - 1 if x - 1 > 0 else x, y) == rol:
+                if kkk(x, y - 1 if y - 1 > 0 else y) == rol or kkk(x + 1 if x + 1 < 24 else x, y) == rol or kkk(x, y + 1 if y + 1 < 24 else y) == rol or kkk(x - 1 if x - 1 > 0 else x, y) == rol:
                     if str(ctx.author.id) not in db:
                         if luck <= 7:
                             db["stat"].append(["war", rol, kkk(x, y), args[2], True,
-                                            dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
-                                            ctx.author.name])
+                                               dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
+                                               ctx.author.name])
                             await ctx.send(embed=discord.Embed(description=f"succes, выпало {luck}",
-                                                            color=0x49ff42).set_author(
+                                                               color=0x49ff42).set_author(
                                 name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                             war(x, y, rol, kkk(x, y), args[2])
                             db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                         else:
                             await ctx.send(embed=discord.Embed(description=f"не повизло, {luck}",
-                                                   color=0xff4542).set_author(name="Ошибка"))
+                                                               color=0xff4542).set_author(name="Ошибка"))
                             db["stat"].append(["war", rol, kkk(x, y), args[2], False,
-                                            dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
-                                            ctx.author.name])
+                                               dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
+                                               ctx.author.name])
                             db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                     else:
                         delta = dt.datetime.now() - dt.datetime.strptime(db[str(ctx.author.id)],
@@ -202,19 +202,19 @@ async def step(ctx=commands.Context, *args):
                         if delta > time:
                             if luck <= 7:
                                 await ctx.send(embed=discord.Embed(description=f"succes, выпало {luck}",
-                                                                color=0x49ff42).set_author(
+                                                                   color=0x49ff42).set_author(
                                     name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                                 war(x, y, rol, kkk(x, y), args[2])
                                 db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                                 db["stat"].append(["war", rol, kkk(x, y), args[2], True,
-                                                dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                                [x, y], ctx.author.name])
+                                                   dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                                                   [x, y], ctx.author.name])
                             else:
                                 await ctx.send(embed=discord.Embed(description=f"не повизло, {luck}",
-                                                   color=0xff4542).set_author(name="Ошибка"))
+                                                                   color=0xff4542).set_author(name="Ошибка"))
                                 db["stat"].append(["war", rol, kkk(x, y), args[2], False,
-                                                dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
-                                                ctx.author.name])
+                                                   dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), [x, y],
+                                                   ctx.author.name])
                                 db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                         else:
                             tt = time - delta
@@ -238,19 +238,19 @@ async def step(ctx=commands.Context, *args):
             if str(ctx.author.id) not in db:
                 if luck <= 80:
                     await ctx.send(embed=discord.Embed(description=f"succes, выпало {luck}",
-                                                    color=0x49ff42).set_author(
+                                                       color=0x49ff42).set_author(
                         name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                     jjj(x, y, rol)
                     db["stat"].append(
                         ["step", rol, [x, y], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        [x, y], ctx.author.name])
+                         [x, y], ctx.author.name])
                     db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                 else:
                     await ctx.send(embed=discord.Embed(description=f"не повизло, выпало {luck}",
-                                               color=0xff4542).set_author(name="Ошибка"))
+                                                       color=0xff4542).set_author(name="Ошибка"))
                     db["stat"].append(
                         ["step", rol, [x, y], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        [x, y], ctx.author.name])
+                         [x, y], ctx.author.name])
                     db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             else:
                 delta = dt.datetime.now() - dt.datetime.strptime(db[str(ctx.author.id)],
@@ -258,19 +258,19 @@ async def step(ctx=commands.Context, *args):
                 if delta > time:
                     if luck <= 80:
                         await ctx.send(embed=discord.Embed(description=f"succes, выпало {luck}",
-                                                        color=0x49ff42).set_author(
+                                                           color=0x49ff42).set_author(
                             name=f"{ctx.author.name}", icon_url=ctx.author.avatar_url))
                         jjj(x, y, rol)
                         db["stat"].append(
                             ["step", rol, [x, y], True, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                            [x, y], ctx.author.name])
+                             [x, y], ctx.author.name])
                         db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                     else:
                         await ctx.send(embed=discord.Embed(description=f"не повизло, выпало {luck}",
-                                               color=0xff4542).set_author(name="Ошибка"))
+                                                           color=0xff4542).set_author(name="Ошибка"))
                         db["stat"].append(
                             ["step", rol, [x, y], False, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                            [x, y], ctx.author.name])
+                             [x, y], ctx.author.name])
                         db[str(ctx.author.id)] = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                 else:
                     tt = time - delta

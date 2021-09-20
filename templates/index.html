@@ -30,20 +30,36 @@
 		{% endfor %}
 	</div> -->
 	<div class="map">
-		<div style="width:351px;height:351px">
+		<div style="width:365px;height:365px">
 			<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="smallGrid" width="14" height="14" patternUnits="userSpaceOnUse">
 						<path d="M 14 0 L 0 0 0 14" fill="none" stroke="gray" stroke-width="0.5" />
 					</pattern>
-					<pattern id="grid" width="70" height="70" patternUnits="userSpaceOnUse">
+					<pattern x = "14"id="grid" width="70" height="70" patternUnits="userSpaceOnUse">
 						<rect width="70" height="70" fill="url(#smallGrid)" />
 						<path d="M 70 0 L 0 0 0 70" fill="none" stroke="gray" stroke-width="1" />
 					</pattern>
 				</defs>
-				<rect width="100%" height="100%" fill="url(#grid)" /> 
+				{% for i in range(25, 0, -1)%}
+					{% if i >= 10%}
+					<text fill="gray" font-size="11" font-family="Verdana" x="-1" y="{{14 * (26 - i)}}">{{i}}</text>
+					{% endif %}
+					{% if i < 10 %}
+					<text fill="gray" font-size="13" font-family="Verdana" x="0" y="{{14 * (26 - i)}}">{{i}}</text>
+					{% endif %}
+				{% endfor %}
+				{% for i in range(1, 26)%}
+					{% if i >= 10%}
+					<text fill="gray" font-size="10" font-family="Verdana" x="{{14 * i}}" y="{{14 * 26}}">{{i}}</text>
+					{% endif %}
+					{% if i < 10 %}
+					<text fill="gray" font-size="12" font-family="Verdana" x="{{(14 * i) + 3}}" y="{{14 * 26}}">{{i}}</text>
+					{% endif %}
+				{% endfor %}
+				<rect x="14"width="351px" height="351px" fill="url(#grid)" /> 
 				{% for y, i in enumerate(map, 0)%}
-					{% for x, j in enumerate(i, 0)%}
+					{% for x, j in enumerate(i, 1)%}
 						{% if j != "*" and type(j) == str %}
 						<rect height="4%" width="4%" y="{{14 * y}}" x="{{14 * x}}" stroke-width="1.5" stroke="{{colors[j]}}" fill="{{colors[j]}}" /> 
 						{% endif %}
