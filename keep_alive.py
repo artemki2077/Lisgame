@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from replit import db
 from PIL import Image, ImageDraw
 from threading import Thread
@@ -34,6 +34,27 @@ def update():
                                     (con * (x + 1) + 1, con * (y + 1) + 1)),
                                    fill=colors[str(ww[1])])
     image.save('map2.png')
+
+
+def threated():
+    n = db["n"]
+    b = False
+    mat = [[0] * n for i in range(n)]
+    for x in range(n - 1, 0, -1):
+        for y in range(n):
+            if db["map"][x][y] == "*":
+                db["map"][x][y] = "угроза"
+                b = True
+                break
+        if b:
+            break
+	
+    # if b == False:
+    #     # db["n"] += 1
+	# 	# return threated()
+    #     db["n"] += 1
+    #     return threated()
+    return {"ANSWER": b}
 
 
 def activ():
@@ -72,6 +93,11 @@ def winteam():
                     t[j] = 1
     bestt = sorted(t, key=lambda x: t[x], reverse=True)
     return bestt, t
+
+
+@app.route('/threat')
+def threat():
+    return jsonify(threated())
 
 
 @app.route('/')

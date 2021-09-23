@@ -4,7 +4,7 @@
 # API_KEY = os.getenv("REPLIT_DB_URL")
 # print(AP)
 # print(API_KEY)
-# from replit import db
+from replit import db
 # import datetime as dt
 # import random as r
 
@@ -42,6 +42,15 @@
 # for i in [[10, 20], [10, 21], [10, 22], [10, 23], [11, 21], [11, 22], [12, 21], [13, 21], [13, 22], [14, 21], [15, 21]]:
 # 	jjj(i[0], i[1], "Вороны")
 
-
+print(db["573541342362468362"])
 # db["stat"] = []
-# db["map"][0][24] = "*"
+# db["map"][0][24] = "*("
+# db["n"] = 0
+# db["n"] = 4
+# db["map"][0][0] = "*"
+# db["573541342362468362"] = "21/09/2020 08:56:05"
+# db["map"][0][0] = "*"
+# db["map"][0][1] = "*"
+# db["map"][0][2] = "*"
+# db["map"][0][3] = "*"
+# db["map"][1][0] = "*"

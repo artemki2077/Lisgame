@@ -5,7 +5,7 @@ colors = {
     "Волки" : "#30324b",
     "Львы" : "orange",
 	"Вороны" : "purple",
-	"Артём" : "green"
+	"угроза" : "#31814b"
 }
 TOKEN = os.environ['TOKEN']
 
