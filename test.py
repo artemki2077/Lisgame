@@ -1,10 +1,10 @@
-# import os
+import os
 # my_secret = os.environ['REPLIT_DB_URL']
 
-# API_KEY = os.getenv("REPLIT_DB_URL")
+API_KEY = os.getenv("REPLIT_DB_URL")
 # print(AP)
-# print(API_KEY)
-from replit import db
+print(API_KEY)
+# from replit import db
 # import datetime as dt
 # import random as r
 
@@ -42,7 +42,7 @@ from replit import db
 # for i in [[10, 20], [10, 21], [10, 22], [10, 23], [11, 21], [11, 22], [12, 21], [13, 21], [13, 22], [14, 21], [15, 21]]:
 # 	jjj(i[0], i[1], "Вороны")
 
-print(db["573541342362468362"])
+# print(db["573541342362468362"])
 # db["stat"] = []
 # db["map"][0][24] = "*("
 # db["n"] = 0

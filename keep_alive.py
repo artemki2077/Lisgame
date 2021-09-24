@@ -36,25 +36,25 @@ def update():
     image.save('map2.png')
 
 
-def threated():
-    n = db["n"]
-    b = False
-    mat = [[0] * n for i in range(n)]
-    for x in range(n - 1, 0, -1):
-        for y in range(n):
-            if db["map"][x][y] == "*":
-                db["map"][x][y] = "угроза"
-                b = True
-                break
-        if b:
-            break
+# def threated():
+#     n = db["n"]
+#     b = False
+#     mat = [[0] * n for i in range(n)]
+#     for x in range(n - 1, 0, -1):
+#         for y in range(n):
+#             if db["map"][x][y] == "*":
+#                 db["map"][x][y] = "угроза"
+#                 b = True
+#                 break
+#         if b:
+#             break
 	
-    # if b == False:
-    #     # db["n"] += 1
-	# 	# return threated()
-    #     db["n"] += 1
-    #     return threated()
-    return {"ANSWER": b}
+#     # if b == False:
+#     #     # db["n"] += 1
+# 	# 	# return threated()
+#     #     db["n"] += 1
+#     #     return threated()
+#     return {"ANSWER": b}
 
 
 def activ():
@@ -95,9 +95,9 @@ def winteam():
     return bestt, t
 
 
-@app.route('/threat')
-def threat():
-    return jsonify(threated())
+# @app.route('/threat')
+# def threat():
+#     return jsonify(threated())
 
 
 @app.route('/')

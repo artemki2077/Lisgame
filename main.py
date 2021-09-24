@@ -129,11 +129,8 @@ async def step(ctx=commands.Context, *args):
         x = int(args[0])
         y = int(args[1])
         rol = roles[str(role[0].id)]
-        if rol != "Львы" and len(args) == 3:
-            me = await Client.fetch_user(user_id=689610371413311510)
-            await me.send(f"{ctx.author.name} : {' '.join(args)}")
-
         luck = r.randint(0, 100)
+
         if kkk(x, y) == rol:
             await ctx.send(embed=discord.Embed(description=f"поле уже занято",
                                                color=0xff4542).set_author(name="Ошибка"))
