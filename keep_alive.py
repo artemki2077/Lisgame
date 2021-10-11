@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, request,render_template, jsonify
 from replit import db
 from PIL import Image, ImageDraw
 from threading import Thread
@@ -36,25 +36,24 @@ def update():
     image.save('map2.png')
 
 
-# def threated():
-#     n = db["n"]
-#     b = False
-#     mat = [[0] * n for i in range(n)]
-#     for x in range(n - 1, 0, -1):
-#         for y in range(n):
-#             if db["map"][x][y] == "*":
-#                 db["map"][x][y] = "угроза"
-#                 b = True
-#                 break
-#         if b:
-#             break
-	
-#     # if b == False:
-#     #     # db["n"] += 1
-# 	# 	# return threated()
-#     #     db["n"] += 1
-#     #     return threated()
-#     return {"ANSWER": b}
+def threated():
+    n = db["n"]
+    b = False
+    # mat = [[0] * n for i in range(n)]
+    for x in range(n - 1, -1, -1):
+        for y in range(n):
+            if db["map"][x][y] != "трава":
+                db["map"][x][y] = "трава"
+                b = True
+                break
+        if b:
+            break
+    if b == False:
+        # db["n"] += 1
+		# return threated()
+        db["n"] += 1
+        return threated()
+    return {"ANSWER": b}
 
 
 def activ():
@@ -95,9 +94,17 @@ def winteam():
     return bestt, t
 
 
-# @app.route('/threat')
-# def threat():
-#     return jsonify(threated())
+@app.route('/threat')
+def threat():
+    return jsonify(threated())
+
+# @app.route('/update', methods=['GET', 'POST'])
+# def updt():
+# 	update()
+# 	# data = request.args.get('myLuckyNumber')
+# 	# return jsonify(data)
+# 	h = list(map(list, db["map"].value))
+# 	return jsonify(h)
 
 
 @app.route('/')

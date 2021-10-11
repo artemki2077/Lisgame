@@ -1,4 +1,3 @@
-
 import discord
 from PIL import Image, ImageDraw
 from discord.ext import commands
@@ -95,6 +94,10 @@ def update():
     file = discord.File("map2.png")
     return file
 
+@client.command(pass_context=True)
+async def timer(ctx: commands.Context):
+	await ctx.send(embed=discord.Embed(description=f"осталось {0} часов {0} минут и {0} секунд",
+                                               color=0x31814b).set_author(name="Timer"))
 
 @client.command(pass_context=True)
 async def map(ctx: commands.Context):

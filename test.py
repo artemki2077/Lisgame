@@ -1,10 +1,10 @@
-import os
+# import os
 # my_secret = os.environ['REPLIT_DB_URL']
 
-API_KEY = os.getenv("REPLIT_DB_URL")
+# API_KEY = os.getenv("REPLIT_DB_URL")
 # print(AP)
-print(API_KEY)
-# from replit import db
+# print(API_KEY)
+from replit import db
 # import datetime as dt
 # import random as r
 
@@ -27,16 +27,19 @@ print(API_KEY)
 # print(os.getenv("REPLIT_DB_URL")
 # my_secret = os.environ['REPLIT_DB_URL']
 # "))
-# def jjj(x, y, z):
-#     db["map"][25 - y][x - 1] = z
+def jjj(x, y, z):
+    db["map"][25 - y][x - 1] = z
 # colors = {
 #     "Волки" : "#30324b",
 #     "Львы" : "orange",
 # 	"Вороны" : "purple",
 # 	"Артём" : "green"
 # }
-# for i in [[7, 6], [6, 6], [6, 7], [6, 8], [7, 8], [8, 8], [9, 8]]:
-# 	jjj(i[0], i[1], "Львы")
+# for i in [[1, 24], [2, 24], [3, 24], [1, 23], [2, 23], [3, 23], [1, 22]]:
+# 	jjj(i[0], i[1], "*")
+# db["n"] = 1
+# jjj(1, 25, "трава")
+# jjj(1, 24, "трава")
 # for i in [[15, 15], [14, 15], [13, 15], [13, 16], [13, 17], [13, 18], [13, 19]]:
 # 	jjj(i[0], i[1], "Волки")
 # for i in [[10, 20], [10, 21], [10, 22], [10, 23], [11, 21], [11, 22], [12, 21], [13, 21], [13, 22], [14, 21], [15, 21]]:
@@ -44,9 +47,9 @@ print(API_KEY)
 
 # print(db["573541342362468362"])
 # db["stat"] = []
-# db["map"][0][24] = "*("
+# db["map"][3][0] = "*"
+print(db["n"])
 # db["n"] = 0
-# db["n"] = 4
 # db["map"][0][0] = "*"
 # db["573541342362468362"] = "21/09/2020 08:56:05"
 # db["map"][0][0] = "*"
